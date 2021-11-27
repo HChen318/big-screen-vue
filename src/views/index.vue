@@ -88,11 +88,10 @@
                 <centerLeft1 :data="numberData2" id="ring2"/>
               </dv-border-box-12>
             </div> -->
-            <dv-border-box-13>
+            <dv-border-box-12>
               <centerRight1 />
-            </dv-border-box-13>
+            </dv-border-box-12>
           </div>
-
           <!-- 第四行数据 -->
           <div class="bototm-box">
             <dv-border-box-13>

@@ -1,7 +1,7 @@
 <template>
   <div id="center">
     <div class="up">
-      <div
+      <!-- <div
         class="bg-color-black item"
         v-for="item in titleItem"
         :key="item.title"
@@ -14,13 +14,27 @@
             :config="item.number"
             style="width: 2.5rem; height: 0.375rem; text-align: center"
           />
-          <!-- padding:0rem 0.9rem 0rem 0.9rem; -->
+        </div>
+      </div> -->
+      <bottomLeftChart ref="bottomLeftChart" />
+      <div class="up-r">
+        <div class="item">
+          <div class="label">预灰PH值:</div>
+          <div class="val">100</div>
+        </div>
+        <div class="item">
+          <div class="label">混合汁流量</div>
+          <div class="val"></div>
+        </div>
+        <div class="item">
+          <div class="label">渗透水温度值:</div>
+          <div class="val"></div>
         </div>
       </div>
     </div>
     <div class="down">
       <div class="percent">
-        <div class="item bg-color-black">
+        <!-- <div class="item bg-color-black">
           <span>{{ rate[0].id }}</span>
           <centerChart
             :id="rate[0].id"
@@ -46,15 +60,13 @@
             :colorObj="rate[2].colorData"
             ref="centerChart3"
           />
-        </div>
+        </div> -->
         <!-- <div class="water">
           <dv-water-level-pond :config="water" style="height: 1.5rem" />
         </div>
+        -->
 
-        <bottomLeftChartState
-          style=""
-          ref="bottomLeftChartState"
-        /> -->
+        <!-- <bottomLeftChartState style="" ref="bottomLeftChartState" /> -->
       </div>
       <div id="elecChart" class="elec-main"></div>
     </div>
@@ -63,8 +75,16 @@
  
 <script>
 import centerChart from "@/components/echart/center/centerChartRate";
+import bottomLeftChart from "@/components/echart/bottom/bottomLeftChart";
 
 export default {
+  components: {
+    // centerChart
+    // centerChart1,
+    // centerChart2
+
+    bottomLeftChart,
+  },
   data() {
     return {
       titleItem: [
@@ -173,7 +193,7 @@ export default {
         oddRowBGC: "#0f1325", //奇数行
         evenRowBGC: "#171c33", //偶数行
         index: true,
-        columnWidth: [30,150,50],
+        columnWidth: [30, 150, 50],
         align: ["center"],
         waitTime: 3000,
         carousel: "page",
@@ -333,281 +353,284 @@ export default {
       }
     },
     initElecCharts() {
-      let xData = ['1#压榨机', '2#压榨机', '3#压榨机', '4#压榨机', '5#压榨机']
+      let xData = ["1#压榨机", "2#压榨机", "3#压榨机", "4#压榨机", "5#压榨机"];
       let lastYearData = [3, 20, 62, 34, 55, 65, 33];
       let thisYearData = [11, 38, 23, 39, 66, 66, 79];
       let timeLineData = [1];
-      let legend=['电流', '转速'];
+      let legend = ["电流", "转速"];
       let textColor = "#fff";
-      let lineColor="rgba(255,255,255,0.2)";
-      let colors = [{
-              borderColor: "rgba(227,161,96,1)",
-              start: "rgba(227,161,96,0.8)",
-              end: "rgba(227,161,96,0.3)"
-          },
-          {
-              borderColor: "rgba(0,222,255,1)",
-              start: "rgba(0,222,255,0.3)",
-              end: "rgba(0,222,255,0.8)"
-          },
+      let lineColor = "rgba(255,255,255,0.2)";
+      let colors = [
+        {
+          borderColor: "rgba(227,161,96,1)",
+          start: "rgba(227,161,96,0.8)",
+          end: "rgba(227,161,96,0.3)",
+        },
+        {
+          borderColor: "rgba(0,222,255,1)",
+          start: "rgba(0,222,255,0.3)",
+          end: "rgba(0,222,255,0.8)",
+        },
       ];
       let borderData = [];
       let scale = 2;
       borderData = xData.map(() => {
-          return scale;
+        return scale;
       });
       let option = {
-          baseOption: {
-              timeline: {
-                  show: false,
-                  top: 0,
-                  data: []
-              },
-              legend: {
-                  top: '0',
-                  // right: '5%',
-                  itemWidth: 8,
-                  itemHeight: 8,
-                  icon: 'horizontal',
-                  textStyle: {
-                      color: '#ffffff',
-                      fontSize: 10,
-                  },
-                  data: legend
-              },
-              grid: [{
-                  show: false,
-                  left: '5%',
-                  top: '10%',
-                  bottom: '8%',
-                  containLabel: true,
-                  width: '37%'
-              }, {
-                  show: false,
-                  left: '51%',
-                  top: '10%',
-                  bottom: '8%',
-                  width: '0%'
-              }, {
-                  show: false,
-                  right: '2%',
-                  top: '10%',
-                  bottom: '8%',
-                  containLabel: true,
-                  width: '37%'
-              }],
-              xAxis: [{
-                  type: 'value',
-                  inverse: true,
-                  axisLine: {
-                      show: false
-                  },
-                  axisTick: {
-                      show: false
-                  },
-                  position: 'top',
-                  axisLabel: {
-                      show: true,
-                      color: textColor
-                  },
-                  splitLine:{
-                      show: true,
-                      lineStyle:{
-                          color:lineColor
-                      }
-                  },
-              }, {
-                  gridIndex: 1,
-                  show: false
-              }, {
-                  gridIndex: 2,
-                  axisLine: {
-                      show: false
-                  },
-                  axisTick: {
-                      show: false
-                  },
-                  position: 'top',
-                  axisLabel: {
-                      show: true,
-                      color: textColor
-                  },
-                  splitLine:{
-                      show: true,
-                      lineStyle:{
-                          color:lineColor
-                      }
-                  },
-              }],
-              yAxis: [{
-                  type: 'category',
-                  inverse: true,
-                  position: 'right',
-                  axisLine: {
-                      show: true,
-                      lineStyle:{
-                          color:lineColor
-                      }
-                  },
-                  axisTick: {
-                      show: false
-                  },
-                  axisLabel: {
-                      show: false
-                  },
-                  data: xData
-              }, {
-                  gridIndex: 1,
-                  type: 'category',
-                  inverse: true,
-                  position: 'left',
-                  axisLine: {
-                      show: false
-                  },
-                  axisTick: {
-                      show: false
-                  },
-                  axisLabel: {
-                      show: true,
-                      padding:[0,0,0,0],
-                      textStyle: {
-                          color: '#ffffff',
-                          fontSize: 11
-                      },
-                      align: "center"
-
-                  },
-                  data: xData.map(function(value) {
-                      return {
-                          value: value,
-                          textStyle: {
-                              align: 'center'
-                          }
-                      }
-                  })
-              }, {
-                  gridIndex: 2,
-                  type: 'category',
-                  inverse: true,
-                  position: 'left',
-                  axisLine: {
-                      show: true,
-                      lineStyle:{
-                          color:lineColor
-                      }
-                  },
-                  axisTick: {
-                      show: false
-                  },
-                  axisLabel: {
-                      show: false
-
-                  },
-                  data: xData
-              }],
-              series: []
-
+        baseOption: {
+          timeline: {
+            show: false,
+            top: 0,
+            data: [],
           },
-          options: []
-      }
+          legend: {
+            top: "0",
+            // right: '5%',
+            itemWidth: 8,
+            itemHeight: 8,
+            icon: "horizontal",
+            textStyle: {
+              color: "#ffffff",
+              fontSize: 10,
+            },
+            data: legend,
+          },
+          grid: [
+            {
+              show: false,
+              left: "5%",
+              top: "10%",
+              bottom: "8%",
+              containLabel: true,
+              width: "37%",
+            },
+            {
+              show: false,
+              left: "51%",
+              top: "10%",
+              bottom: "8%",
+              width: "0%",
+            },
+            {
+              show: false,
+              right: "2%",
+              top: "10%",
+              bottom: "8%",
+              containLabel: true,
+              width: "37%",
+            },
+          ],
+          xAxis: [
+            {
+              type: "value",
+              inverse: true,
+              axisLine: {
+                show: false,
+              },
+              axisTick: {
+                show: false,
+              },
+              position: "top",
+              axisLabel: {
+                show: true,
+                color: textColor,
+              },
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  color: lineColor,
+                },
+              },
+            },
+            {
+              gridIndex: 1,
+              show: false,
+            },
+            {
+              gridIndex: 2,
+              axisLine: {
+                show: false,
+              },
+              axisTick: {
+                show: false,
+              },
+              position: "top",
+              axisLabel: {
+                show: true,
+                color: textColor,
+              },
+              splitLine: {
+                show: true,
+                lineStyle: {
+                  color: lineColor,
+                },
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: "category",
+              inverse: true,
+              position: "right",
+              axisLine: {
+                show: true,
+                lineStyle: {
+                  color: lineColor,
+                },
+              },
+              axisTick: {
+                show: false,
+              },
+              axisLabel: {
+                show: false,
+              },
+              data: xData,
+            },
+            {
+              gridIndex: 1,
+              type: "category",
+              inverse: true,
+              position: "left",
+              axisLine: {
+                show: false,
+              },
+              axisTick: {
+                show: false,
+              },
+              axisLabel: {
+                show: true,
+                padding: [0, 0, 0, 0],
+                textStyle: {
+                  color: "#ffffff",
+                  fontSize: 11,
+                },
+                align: "center",
+              },
+              data: xData.map(function (value) {
+                return {
+                  value: value,
+                  textStyle: {
+                    align: "center",
+                  },
+                };
+              }),
+            },
+            {
+              gridIndex: 2,
+              type: "category",
+              inverse: true,
+              position: "left",
+              axisLine: {
+                show: true,
+                lineStyle: {
+                  color: lineColor,
+                },
+              },
+              axisTick: {
+                show: false,
+              },
+              axisLabel: {
+                show: false,
+              },
+              data: xData,
+            },
+          ],
+          series: [],
+        },
+        options: [],
+      };
 
-      option.baseOption.timeline.data.push(timeLineData[0])
+      option.baseOption.timeline.data.push(timeLineData[0]);
       option.options.push({
-          series: [{
-                  name: "电流",
-                  type: "bar",
-                  barWidth: 10,
-                  stack: "1",
-                  itemStyle: {
-                      normal: {
-                          color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-                                  offset: 0,
-                                  color: colors[0].start
-                              },
-                              {
-                                  offset: 1,
-                                  color: colors[0].end
-                              }
-                          ]),
-                      }
+        series: [
+          {
+            name: "电流",
+            type: "bar",
+            barWidth: 10,
+            stack: "1",
+            itemStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 0,
+                    color: colors[0].start,
                   },
-                  label: {
-                      normal: {
-                          show: false,
-                      }
+                  {
+                    offset: 1,
+                    color: colors[0].end,
                   },
-                  data: lastYearData,
-                  animationEasing: "elasticOut"
+                ]),
               },
-              {
-                  name: "电流",
-                  type: "bar",
-                  barWidth: 10,
-                  stack: "1",
-                  itemStyle: {
-                      normal: {
-                          color: colors[0].borderColor
-
-                      }
-                  },
-                  data: borderData
+            },
+            label: {
+              normal: {
+                show: false,
               },
-              {
-                  name: "转速",
-                  type: "bar",
-                  stack: "2",
-                  barWidth: 10,
-                  xAxisIndex: 2,
-                  yAxisIndex: 2,
-                  itemStyle: {
-                      normal: {
-                          color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [{
-                                  offset: 0,
-                                  color: colors[1].start
-                              },
-                              {
-                                  offset: 1,
-                                  color: colors[1].end
-                              }
-                          ]),
-                      }
-                  },
-                  label: {
-                      normal: {
-                          show: false,
-                      }
-                  },
-                  data: thisYearData,
-                  animationEasing: "elasticOut"
+            },
+            data: lastYearData,
+            animationEasing: "elasticOut",
+          },
+          {
+            name: "电流",
+            type: "bar",
+            barWidth: 10,
+            stack: "1",
+            itemStyle: {
+              normal: {
+                color: colors[0].borderColor,
               },
-              {
-                  name: "转速",
-                  type: "bar",
-                  xAxisIndex: 2,
-                  yAxisIndex: 2,
-                  barWidth: 10,
-                  stack: "2",
-                  itemStyle: {
-                      normal: {
-                          color: colors[1].borderColor
-
-                      }
+            },
+            data: borderData,
+          },
+          {
+            name: "转速",
+            type: "bar",
+            stack: "2",
+            barWidth: 10,
+            xAxisIndex: 2,
+            yAxisIndex: 2,
+            itemStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 0,
+                    color: colors[1].start,
                   },
-                  data: borderData
+                  {
+                    offset: 1,
+                    color: colors[1].end,
+                  },
+                ]),
               },
-          ]
+            },
+            label: {
+              normal: {
+                show: false,
+              },
+            },
+            data: thisYearData,
+            animationEasing: "elasticOut",
+          },
+          {
+            name: "转速",
+            type: "bar",
+            xAxisIndex: 2,
+            yAxisIndex: 2,
+            barWidth: 10,
+            stack: "2",
+            itemStyle: {
+              normal: {
+                color: colors[1].borderColor,
+              },
+            },
+            data: borderData,
+          },
+        ],
       });
-      this.chart = this.$echarts.init(
-        document.getElementById("elecChart")
-      );
-      this.chart.setOption(option)
-    }
-  },
-  components: {
-    centerChart
-    // centerChart1,
-    // centerChart2
-    // bottomLeftChartState,
+      this.chart = this.$echarts.init(document.getElementById("elecChart"));
+      this.chart.setOption(option);
+    },
   },
 };
 </script>
@@ -619,23 +642,41 @@ export default {
   .up {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    .item {
-      border-radius: 0.0625rem;
-      padding-top: 0.13rem;
-      margin-top: 0.1rem;
-      width: 32%;
-      height: 0.675rem;
-      font-size: 0.01rem;
+    padding: 10px;
+    // height: 3.25rem;
+    flex: 1;
+    // flex-wrap: wrap;
+    // justify-content: space-around;
+    // .item {
+    //   border-radius: 0.0625rem;
+    //   padding-top: 0.13rem;
+    //   margin-top: 0.1rem;
+    //   width: 32%;
+    //   height: 0.675rem;
+    //   font-size: 0.01rem;
+    // }
+    .up-r {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .item {
+        display: flex;
+        font-size: 0.3rem;
+        margin-top: 0.2rem;
+        .label {
+          margin-right: 0.1rem;
+        }
+      }
     }
   }
   .down {
+       flex: 1;
     padding: 0.07rem 0.05rem;
-    padding-bottom: 0;
+    // padding-bottom: 0;
     width: 100%;
     // display: flex;
-    height: 3.5875rem;
+    // height: 3rem;
+    // margin-top: 0.5rem;
     // justify-content: space-between;
     .bg-color-black {
       border-radius: 0.0625rem;

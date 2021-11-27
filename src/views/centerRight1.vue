@@ -9,12 +9,73 @@
           <span class="fs-xl text mx-2">蒸发罐气鼓统计</span>
         </div>
       </div>
-      <div class="d-flex jc-center body-box">
-        <dv-scroll-board
-          :config="config"
-          ref="log"
-          style="width: 3.375rem; height: 4.28rem"
-        />
+      <div class="d-flex content">
+        <div class="left">
+          <div class="top">
+            <dv-border-box-13>
+              <div class="warrper">
+                <div class="item">
+                  <div class="label">混合汁箱液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">中和汁箱液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">沉淀池液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">桔水罐液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">清汁箱液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">冷水箱液位:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">热水箱液位:</div>
+                  <div class="val">100</div>
+                </div>
+              </div>
+            </dv-border-box-13>
+          </div>
+
+          <div class="bottom">
+            <dv-border-box-13>
+              <div class="warrper">
+                <div class="item">
+                  <div class="label">一次加热温度:</div>
+                  <div class="val">100</div>
+                </div>
+                <div class="item">
+                  <div class="label">二次加热温度:</div>
+                  <div class="val">100</div>
+                </div>
+              </div>
+            </dv-border-box-13>
+          </div>
+        </div>
+        <div class="right">
+          <!-- <div class="r-top"> -->
+          <dv-border-box-13 class="r-border-top">
+            <dv-scroll-board :config="config" ref="log" />
+          </dv-border-box-13>
+          <dv-border-box-13 class="r-border-bottom">
+            
+            <div>121212</div>
+            <div>121212</div>
+            <div>121212</div>
+            <div>121212</div>
+            <div>121212</div>
+            <div>121212</div>
+          </dv-border-box-13>
+        </div>
       </div>
     </div>
   </div>
@@ -25,15 +86,14 @@ export default {
   data() {
     return {
       config: {
-        header: ["设备",
-        "压力", "温度", "真空度"],
+        header: ["设备", "压力", "温度", "真空度"],
         data: [
           ["1#", "12", "35", "78"],
           ["2#", "12", "35", "78"],
           ["3#", "12", "35", "78"],
           ["4#", "12", "35", "78"],
           ["5#", "12", "35", "78"],
-          ["6#", "12", "35", "78"]
+          ["6#", "12", "35", "78"],
         ],
         rowNum: 8, //表格行数
         headerHeight: 35,
@@ -57,9 +117,7 @@ export default {
       }, 3000);
     },
     async fetchProposalSubmit() {
-      const { data } = await this.$http.get(
-        "getDataByName?name=LOGIN_LOG"
-      );
+      const { data } = await this.$http.get("getDataByName?name=LOGIN_LOG");
 
       let status = data.status;
       let dataList = JSON.parse(data.data);
@@ -67,10 +125,12 @@ export default {
       var dataArr = new Array();
       if (status === 200) {
         for (var i = dataList.length - 1; i >= 0; i--) {
-          let item =new Array();
+          let item = new Array();
           item.push(dataList[i].NAME);
           // item.push(dataList[i].TIME);
-          item.push("<span  class='colorGrass'>"+dataList[i].MESSAGE+"</span>");
+          item.push(
+            "<span  class='colorGrass'>" + dataList[i].MESSAGE + "</span>"
+          );
           dataArr.push(item);
         }
         this.config.data = dataArr;
@@ -94,9 +154,35 @@ export default {
   .text {
     color: #c3cbde;
   }
-  .body-box {
-    border-radius: 0.125rem;
-    overflow: hidden;
+  .content {
+    display: flex;
+    .left {
+      flex: 1;
+      margin-right: 0.1rem;
+      .warrper {
+        padding: 0.2rem 0.2rem 0.25rem 0.2rem;
+      }
+      .item {
+        display: flex;
+        margin-top: 0.24rem;
+        .label {
+          margin-right: 0.1rem;
+        }
+      }
+    }
+    .right {
+      flex: 3;
+      .r-top {
+        // padding: 0.2rem;
+      }
+      .r-border-top {
+        box-sizing: border-box;
+        padding: 0.3rem;
+      }
+      .r-bottom {
+        // margin-top: 0.12rem;
+      }
+    }
   }
 }
 </style>
