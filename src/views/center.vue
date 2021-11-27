@@ -35,41 +35,6 @@
       </div>
     </div>
     <div class="down">
-      <!-- <div class="percent"> -->
-      <!-- <div class="item bg-color-black">
-          <span>{{ rate[0].id }}</span>
-          <centerChart
-            :id="rate[0].id"
-            :tips="rate[0].tips"
-            :colorObj="rate[0].colorData"
-            ref="centerChart1"
-          />
-        </div>
-        <div class="item bg-color-black">
-          <span>{{ rate[1].id }}</span>
-          <centerChart
-            :id="rate[1].id"
-            :tips="rate[1].tips"
-            :colorObj="rate[1].colorData"
-            ref="centerChart2"
-          />
-        </div>
-        <div class="item bg-color-black">
-          <span>{{ rate[2].id }}</span>
-          <centerChart
-            :id="rate[2].id"
-            :tips="rate[2].tips"
-            :colorObj="rate[2].colorData"
-            ref="centerChart3"
-          />
-        </div> -->
-      <!-- <div class="water">
-          <dv-water-level-pond :config="water" style="height: 1.5rem" />
-        </div>
-        -->
-
-      <!-- <bottomLeftChartState style="" ref="bottomLeftChartState" /> -->
-      <!-- </div> -->
       <div id="elecChart" class="elec-main"></div>
     </div>
   </div>

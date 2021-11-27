@@ -48,7 +48,7 @@
 
           <div class="bottom">
             <dv-border-box-13>
-              <div class="warrper">
+              <div class="warrper-b">
                 <div class="item">
                   <div class="label">一次加热温度:</div>
                   <div class="val">100</div>
@@ -68,22 +68,24 @@
             </dv-border-box-13>
           </div>
           <div class="r-bottom">
-            <dv-border-box-13 style="padding: 0.3rem">
-              <div class="item">
-                <span>7#甲膏结晶罐真空度</span>
-                <span>7#甲膏结晶罐气鼓温度</span>
-              </div>
-              <div class="item">
-                <span>8#甲膏结晶罐真空度</span>
-                <span>8#甲膏结晶罐气鼓温度</span>
-              </div>
-              <div class="item">
-                <span>9#甲膏结晶罐真空度</span>
-                <span>9#甲膏结晶罐气鼓温度</span>
-              </div>
-              <div class="item">
-                <span>10#甲膏结晶罐真空度</span>
-                <span>10#甲膏结晶罐气鼓温度</span>
+            <dv-border-box-13>
+              <div class="warrper">
+                <div class="item">
+                  <span>7#甲膏结晶罐真空度</span>
+                  <span>7#甲膏结晶罐气鼓温度</span>
+                </div>
+                <div class="item">
+                  <span>8#甲膏结晶罐真空度</span>
+                  <span>8#甲膏结晶罐气鼓温度</span>
+                </div>
+                <div class="item">
+                  <span>9#甲膏结晶罐真空度</span>
+                  <span>9#甲膏结晶罐气鼓温度</span>
+                </div>
+                <div class="item">
+                  <span>10#甲膏结晶罐真空度</span>
+                  <span>10#甲膏结晶罐气鼓温度</span>
+                </div>
               </div>
             </dv-border-box-13>
           </div>
@@ -172,14 +174,17 @@ export default {
       flex: 1;
       margin-right: 0.1rem;
       .warrper {
-        padding: 0.2rem 0.2rem 0.25rem 0.2rem;
+        padding: 0.3rem 0.2rem;
       }
       .item {
         display: flex;
-        margin-top: 0.24rem;
+        margin-top: 0.2rem;
         .label {
           margin-right: 0.1rem;
         }
+      }
+      .warrper-b {
+        padding: 0.1rem 0.2rem 0.25rem;
       }
     }
     .right {
@@ -187,20 +192,22 @@ export default {
       display: flex;
       flex-direction: column;
       .r-top {
-        height: 3rem;
+        height: 2.4rem;
       }
       .r-border-top {
         box-sizing: border-box;
         padding: 0.3rem;
       }
+      .warrper {
+        padding: 0.3rem 0.2rem;
+      }
       .r-bottom {
         flex: 1;
-
         .item {
           font-size: 0.3rem;
           margin-top: 0.15rem;
           span {
-            margin-right: 0.1rem;
+            margin-left: 0.3rem;
           }
         }
       }
