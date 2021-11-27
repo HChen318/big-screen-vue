@@ -151,7 +151,7 @@ export default {
           ],
         },
         grid: {
-          top: "20%",
+          top: "26%",
           left: "10%",
           right: "3%",
           bottom: "20%",
@@ -171,7 +171,7 @@ export default {
               //坐标轴刻度标签的相关设置
               textStyle: {
                 color: "#7ec7ff",
-                padding: 16,
+                padding: 25,
                 fontSize: 14,
               },
               formatter: function (data) {

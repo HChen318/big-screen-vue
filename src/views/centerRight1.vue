@@ -16,31 +16,31 @@
               <div class="warrper">
                 <div class="item">
                   <div class="label">混合汁箱液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.hhz }}</div>
                 </div>
                 <div class="item">
                   <div class="label">中和汁箱液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.zhz }}</div>
                 </div>
                 <div class="item">
                   <div class="label">沉淀池液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.cdc }}</div>
                 </div>
                 <div class="item">
                   <div class="label">桔水罐液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.jsg }}</div>
                 </div>
                 <div class="item">
                   <div class="label">清汁箱液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.qzx }}</div>
                 </div>
                 <div class="item">
                   <div class="label">冷水箱液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.lsx }}</div>
                 </div>
                 <div class="item">
                   <div class="label">热水箱液位:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ overviewData.rsx }}</div>
                 </div>
               </div>
             </dv-border-box-13>
@@ -51,11 +51,11 @@
               <div class="warrper-b">
                 <div class="item">
                   <div class="label">一次加热温度:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ jiarewendu.heating1 }}</div>
                 </div>
                 <div class="item">
                   <div class="label">二次加热温度:</div>
-                  <div class="val">100</div>
+                  <div class="val">{{ jiarewendu.heating2 }}</div>
                 </div>
               </div>
             </dv-border-box-13>
@@ -64,7 +64,20 @@
         <div class="right">
           <div class="r-top">
             <dv-border-box-13 class="r-border-top">
-              <dv-scroll-board :config="config" ref="log" />
+              <div class="fs-xl text mx-2">蒸发罐汽鼓</div>
+              <!-- <dv-scroll-board :config="config" ref="log" /> -->
+              <div class="header">
+                <span class="item" v-for="item in config.header" :key="item">{{
+                  item
+                }}</span>
+              </div>
+              <div class="zq-content">
+                <div v-for="(item, key) in config.data" :key="key">
+                  <span v-for="subItem in item" :key="subItem">{{
+                    subItem
+                  }}</span>
+                </div>
+              </div>
             </dv-border-box-13>
           </div>
           <div class="r-bottom">
@@ -96,6 +109,7 @@
 </template>
 
 <script>
+import { baseUrl } from "@/common/utils";
 export default {
   data() {
     return {
@@ -109,46 +123,78 @@ export default {
           ["5#", "12", "35", "78"],
           ["6#", "12", "35", "78"],
         ],
-        rowNum: 8, //表格行数
-        headerHeight: 35,
+        rowNum: 7, //表格行数
+        headerHeight: 30,
         headerBGC: "#0f1325", //表头
         oddRowBGC: "#0f1325", //奇数行
         evenRowBGC: "#171c33", //偶数行
         index: false,
-        columnWidth: [50],
+        columnWidth: [100],
         align: ["left"],
+      },
+      overviewData: {
+        hhz: "",
+        zhz: "",
+        cdc: "",
+        jsg: "",
+        qzx: "",
+        lsx: "",
+        rsx: "",
+      },
+      jiarewendu: {
+        heating1: "",
+        heating2: "",
       },
     };
   },
   components: {},
   mounted() {
+    this.fetchProposalSubmit();
+    this.fetchZhengfa();
+    this.fetchJiaRe();
     this.changeTiming();
   },
   methods: {
     changeTiming() {
       setInterval(() => {
-        this.fetchProposalSubmit(); //获取-建议情况
-      }, 3000);
+        this.fetchProposalSubmit();
+        this.fetchZhengfa();
+        this.fetchJiaRe();
+      }, 1000);
     },
     async fetchProposalSubmit() {
-      const { data } = await this.$http.get("getDataByName?name=LOGIN_LOG");
-
-      let status = data.status;
-      let dataList = JSON.parse(data.data);
-
-      var dataArr = new Array();
-      if (status === 200) {
-        for (var i = dataList.length - 1; i >= 0; i--) {
-          let item = new Array();
-          item.push(dataList[i].NAME);
-          // item.push(dataList[i].TIME);
-          item.push(
-            "<span  class='colorGrass'>" + dataList[i].MESSAGE + "</span>"
-          );
-          dataArr.push(item);
+      const { data = {} } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_ZL_ZFG`
+      );
+      let dataList = data.data;
+      var dataArr = [];
+      dataList.forEach((ele) => {
+        if (ele[0]) {
+          dataArr.push([
+            `#${ele[0].number}`,
+            ele[0].pressure,
+            ele[0].temperature,
+            ele[0].vacuums,
+          ]);
         }
-        this.config.data = dataArr;
-        this.$refs["log"].updateRows(dataArr);
+      });
+      // this.$refs["log"].updateRows(dataArr);
+      this.config.data = dataArr;
+    },
+    async fetchZhengfa() {
+      const { data = {} } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_ZL_ZFYW`
+      );
+      for (const key in data.data) {
+        this.overviewData[key] = data.data[key].water_level;
+      }
+    },
+    async fetchJiaRe() {
+      const { data = {} } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_ZL_JRWD`
+      );
+      for (const key in data.data) {
+        this.jiarewendu[key] = data.data[key].temperature;
       }
     },
   },
@@ -192,11 +238,37 @@ export default {
       display: flex;
       flex-direction: column;
       .r-top {
-        height: 2.4rem;
+        height: 3rem;
       }
       .r-border-top {
         box-sizing: border-box;
         padding: 0.3rem;
+        display: flex;
+
+        .header {
+          display: flex;
+          justify-content: center;
+          margin-top: 0.1rem;
+          span {
+            flex: 1;
+            font-size: 0.22rem;
+            display: flex;
+            justify-content: center;
+          }
+        }
+        .zq-content {
+          margin-top: 0.2rem;
+          > div {
+            display: flex;
+            margin-top: 0.05rem;
+            span {
+              flex: 1;
+              display: flex;
+              justify-content: center;
+              font-size: 0.16rem;
+            }
+          }
+        }
       }
       .warrper {
         padding: 0.3rem 0.2rem;
@@ -204,8 +276,8 @@ export default {
       .r-bottom {
         flex: 1;
         .item {
-          font-size: 0.3rem;
-          margin-top: 0.15rem;
+          font-size: 0.24rem;
+          margin-top: 0.08rem;
           span {
             margin-left: 0.3rem;
           }

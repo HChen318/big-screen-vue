@@ -18,7 +18,10 @@
         </div>
       </div>
       <div class="bottom-main">
-        <bottomLeftChartLeft style="margin-right: 0.3rem" ref="bottomLeftChartLeft" />
+        <bottomLeftChartLeft
+          style="margin-right: 0.3rem"
+          ref="bottomLeftChartLeft"
+        />
         <bottomLeftChartRight ref="bottomLeftChartRight" />
       </div>
     </div>
@@ -28,6 +31,7 @@
 <script>
 import bottomLeftChartLeft from "@/components/echart/bottom/bottomLeftChartLeft";
 import bottomLeftChartRight from "@/components/echart/bottom/bottomLeftChartRight";
+import { baseUrl } from "@/common/utils";
 export default {
   data() {
     return {
@@ -46,10 +50,12 @@ export default {
       this.timer = setInterval(() => {
         this.fetchBoiler30TData(); //获取-状态
         this.fetchBoiler50TData(); //获取-状态
-      }, 5* 1000);
+      }, 5 * 1000);
     },
     async fetchBoiler30TData() {
-      const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_DL_30T");
+      const { data } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_DL_30T`
+      );
       const status = data.code;
       const boiler30TData = data.data;
 
@@ -58,7 +64,9 @@ export default {
       }
     },
     async fetchBoiler50TData() {
-      const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_DL_50T");
+      const { data } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_DL_50T`
+      );
       const status = data.code;
       const boiler50TData = data.data;
 
@@ -98,7 +106,7 @@ export default {
 .bottom-main {
   display: flex;
   justify-content: space-between;
-  >div {
+  > div {
     flex: 1;
   }
 }

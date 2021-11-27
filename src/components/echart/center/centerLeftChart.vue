@@ -53,7 +53,7 @@ export default {
           xLabel = Object.keys(obj).map(x=>x.split(' ')[0]);
         })
       }
-      console.log(xLabel, dataObj, 2222);
+      // console.log(xLabel, dataObj, 2222);
       return {
         tooltip: {
           trigger: "axis",
