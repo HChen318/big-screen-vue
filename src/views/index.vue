@@ -109,7 +109,7 @@
 </template>
 
 <script>
-// import centerLeft1 from "./centerLeft1";
+import centerLeft1 from "./centerLeft1";
 // // import centerLeft2 from "./centerLeft2";
 import centerRight1 from "./centerRight1";
 // import centerRight2 from "./centerRight2";
