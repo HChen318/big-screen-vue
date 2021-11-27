@@ -86,7 +86,7 @@ export default {
           },
           formatter: (p) => {
             let dom = `<div style="width: 79px;
-        height: 50px;;color:#fff;position: relative;">
+        height: 50px;color:#fff;position: relative;">
               <svg style="position: absolute;top: 50%;
           left: 50%;
           transform: translateX(-50%) translateY(-50%);" class="svg" xmlns="http://www.w3.org/2000/svg" width="100" height="71" viewBox="0 0 84 55">
@@ -104,8 +104,7 @@ export default {
 
               </style>
             </defs>
-            <path id="矩形_419" data-name="矩形 419" class="cls-1" d="M266,595h74v50H266V624.046L261,620l5-3.984V595Z"
-              transform="translate(-258.5 -592.5)" />
+
           </svg>
               <div style="padding: 4px 8px 4px 14px;display: flex;
               justify-content: center;
@@ -129,6 +128,16 @@ export default {
                       }</span>
                       <span style="font-size:14px;color:#fff;">${
                         p[1] ? p[1].data : ""
+                      }</span>
+                  </div>
+                  <div style="width:100%;height:100%;display:${
+                    p[2] ? "flex" : "none"
+                  };justify-content:space-between;align-items:center;">
+                      <span style="font-size:14px;color:#7ec7ff;">${
+                        p[2] ? p[2].seriesName : ""
+                      }</span>
+                      <span style="font-size:14px;color:#fff;">${
+                        p[2] ? p[2].data : ""
                       }</span>
                   </div>
               </div>
