@@ -94,7 +94,8 @@
       //下方区域的布局
       .content-box {
         display: grid;
-        grid-template-columns: 3fr 2fr 2fr 2fr 2fr;
+        // grid-template-columns: 3fr 2fr 2fr 2fr 2fr;
+        grid-template-columns: repeat(2, 50%);
       }
 
       // 底部数据
