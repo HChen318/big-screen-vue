@@ -6,49 +6,64 @@
           <icon name="chart-bar"></icon>
         </span>
         <div class="d-flex">
-          <span class="fs-xl text mx-2">撕解机电流统计</span>
+          <span class="fs-xl text mx-2">锅炉统计</span>
         </div>
       </div>
       <div class="bottom-main">
-        <bottomLeftChart ref="bottomLeftChart"/>
-        <bottomLeftChartState ref="bottomLeftChartState" />
+        <bottomLeftChartLeft ref="bottomLeftChartLeft"/>
+        <bottomLeftChartRight ref="bottomLeftChartRight" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import bottomLeftChart from "@/components/echart/bottom/bottomLeftChart";
-import bottomLeftChartState from "@/components/echart/bottom/bottomLeftChartState";
+import bottomLeftChartLeft from "@/components/echart/bottom/bottomLeftChartLeft";
+import bottomLeftChartRight from "@/components/echart/bottom/bottomLeftChartRight";
 export default {
   data() {
-    return {};
+    return {
+      timer: null
+    };
   },
   components: {
-    bottomLeftChart,
-    bottomLeftChartState
+    bottomLeftChartLeft,
+    bottomLeftChartRight
   },
   mounted() {
     this.changeTiming();
-
   },
   methods: {
-        changeTiming() {
-      setInterval(() => {
-        this.fetchSystemSum(); //获取-状态
+    changeTiming() {
+      this.timer = setInterval(() => {
+        this.fetchBoiler30TData(); //获取-状态
+        this.fetchBoiler50TData(); //获取-状态
       }, 3000);
     },
-    async fetchSystemSum() {
-      const { data } = await this.$http.get("getDataByName?name=GROUP_HAN_SUM");
+    async fetchBoiler30TData() {
+      const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_30T");
 
-      let status = data.status;
-      let dataList = JSON.parse(data.data);
+      const status = data.status;
+      const boiler30TData = JSON.parse(data.data);
 
       if (status === 200) {
-        this.$refs.bottomLeftChartState.refresh(dataList);
+        this.$refs.bottomLeftChartState.refresh(boiler30TData);
+      }
+    },
+    async fetchBoiler50TData() {
+      const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_50T");
+
+      const status = data.status;
+      const boiler50TData = JSON.parse(data.data);
+
+      if (status === 200) {
+        this.$refs.bottomRightChartState.refresh(boiler50TData);
       }
     },
   },
+  beforeDestroy() {
+    this.timer && clearInterval(this.timer);
+  }
 };
 </script>
 
