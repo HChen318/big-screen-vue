@@ -83,21 +83,15 @@
           <div class="r-bottom">
             <dv-border-box-13>
               <div class="warrper-b">
-                <div class="item">
-                  <span>7#甲膏结晶罐真空度</span>
-                  <span>7#甲膏结晶罐气鼓温度</span>
-                </div>
-                <div class="item">
-                  <span>8#甲膏结晶罐真空度</span>
-                  <span>8#甲膏结晶罐气鼓温度</span>
-                </div>
-                <div class="item">
-                  <span>9#甲膏结晶罐真空度</span>
-                  <span>9#甲膏结晶罐气鼓温度</span>
-                </div>
-                <div class="item">
-                  <span>10#甲膏结晶罐真空度</span>
-                  <span>10#甲膏结晶罐气鼓温度</span>
+                <div class="item" v-for="(item, i) in jiejingArr" :key="i">
+                  <span
+                    >{{ item.number }}#甲膏结晶罐真空度:
+                    {{ item.vacuums }}</span
+                  >
+                  <span
+                    >{{ item.number }}#甲膏结晶罐气鼓温度:
+                    {{ item.temperature }}</span
+                  >
                 </div>
               </div>
             </dv-border-box-13>
@@ -145,6 +139,7 @@ export default {
         heating1: "",
         heating2: "",
       },
+      jiejingArr: [],
     };
   },
   components: {},
@@ -153,6 +148,7 @@ export default {
     this.fetchZhengfa();
     this.fetchJiaRe();
     this.changeTiming();
+    this.fetchJiejing();
   },
   methods: {
     changeTiming() {
@@ -160,6 +156,8 @@ export default {
         this.fetchProposalSubmit();
         this.fetchZhengfa();
         this.fetchJiaRe();
+        this.fetchJiejing();
+        this.fetchJiejing();
       }, 1000);
     },
     async fetchProposalSubmit() {
@@ -195,6 +193,25 @@ export default {
       );
       for (const key in data.data) {
         this.jiarewendu[key] = data.data[key].temperature;
+      }
+    },
+    async fetchJiejing() {
+      const { data = {} } = await this.$http.get(
+        `${baseUrl}/api/getDataByName/?e=1&n=GET_ZL_JJG`
+      );
+      console.log(data, "===data");
+      const dataArr = [];
+      if (data.code === 0) {
+        data.data.forEach((ele) => {
+          if (ele[0]) {
+            dataArr.push({
+              number: ele[0].number,
+              temperature: ele[0].temperature,
+              vacuums: ele[0].temperature,
+            });
+          }
+        });
+        this.jiejingArr = dataArr;
       }
     },
   },
@@ -282,7 +299,7 @@ export default {
           font-size: 0.24rem;
           margin-top: 0.08rem;
           span {
-            margin-left: 0.7rem;
+            margin-left: 0.5rem;
           }
         }
       }
