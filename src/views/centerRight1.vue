@@ -62,19 +62,31 @@
           </div>
         </div>
         <div class="right">
-          <!-- <div class="r-top"> -->
-          <dv-border-box-13 class="r-border-top">
-            <dv-scroll-board :config="config" ref="log" />
-          </dv-border-box-13>
-          <dv-border-box-13 class="r-border-bottom">
-            
-            <div>121212</div>
-            <div>121212</div>
-            <div>121212</div>
-            <div>121212</div>
-            <div>121212</div>
-            <div>121212</div>
-          </dv-border-box-13>
+          <div class="r-top">
+            <dv-border-box-13 class="r-border-top">
+              <dv-scroll-board :config="config" ref="log" />
+            </dv-border-box-13>
+          </div>
+          <div class="r-bottom">
+            <dv-border-box-13 style="padding: 0.3rem">
+              <div class="item">
+                <span>7#甲膏结晶罐真空度</span>
+                <span>7#甲膏结晶罐气鼓温度</span>
+              </div>
+              <div class="item">
+                <span>8#甲膏结晶罐真空度</span>
+                <span>8#甲膏结晶罐气鼓温度</span>
+              </div>
+              <div class="item">
+                <span>9#甲膏结晶罐真空度</span>
+                <span>9#甲膏结晶罐气鼓温度</span>
+              </div>
+              <div class="item">
+                <span>10#甲膏结晶罐真空度</span>
+                <span>10#甲膏结晶罐气鼓温度</span>
+              </div>
+            </dv-border-box-13>
+          </div>
         </div>
       </div>
     </div>
@@ -172,15 +184,25 @@ export default {
     }
     .right {
       flex: 3;
+      display: flex;
+      flex-direction: column;
       .r-top {
-        // padding: 0.2rem;
+        height: 3rem;
       }
       .r-border-top {
         box-sizing: border-box;
         padding: 0.3rem;
       }
       .r-bottom {
-        // margin-top: 0.12rem;
+        flex: 1;
+
+        .item {
+          font-size: 0.3rem;
+          margin-top: 0.15rem;
+          span {
+            margin-right: 0.1rem;
+          }
+        }
       }
     }
   }

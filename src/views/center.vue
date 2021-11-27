@@ -18,23 +18,25 @@
       </div> -->
       <bottomLeftChart ref="bottomLeftChart" />
       <div class="up-r">
-        <div class="item">
-          <div class="label">预灰PH值:</div>
-          <div class="val">100</div>
-        </div>
-        <div class="item">
-          <div class="label">混合汁流量</div>
-          <div class="val"></div>
-        </div>
-        <div class="item">
-          <div class="label">渗透水温度值:</div>
-          <div class="val"></div>
-        </div>
+        <dv-border-box-12 style="padding: 0.2rem; height: 3rem">
+          <div class="item">
+            <div class="label">预灰PH值:</div>
+            <div class="val">100</div>
+          </div>
+          <div class="item">
+            <div class="label">混合汁流量</div>
+            <div class="val"></div>
+          </div>
+          <div class="item">
+            <div class="label">渗透水温度值:</div>
+            <div class="val"></div>
+          </div>
+        </dv-border-box-12>
       </div>
     </div>
     <div class="down">
-      <div class="percent">
-        <!-- <div class="item bg-color-black">
+      <!-- <div class="percent"> -->
+      <!-- <div class="item bg-color-black">
           <span>{{ rate[0].id }}</span>
           <centerChart
             :id="rate[0].id"
@@ -61,13 +63,13 @@
             ref="centerChart3"
           />
         </div> -->
-        <!-- <div class="water">
+      <!-- <div class="water">
           <dv-water-level-pond :config="water" style="height: 1.5rem" />
         </div>
         -->
 
-        <!-- <bottomLeftChartState style="" ref="bottomLeftChartState" /> -->
-      </div>
+      <!-- <bottomLeftChartState style="" ref="bottomLeftChartState" /> -->
+      <!-- </div> -->
       <div id="elecChart" class="elec-main"></div>
     </div>
   </div>
@@ -656,13 +658,11 @@ export default {
     //   font-size: 0.01rem;
     // }
     .up-r {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex: 1;
       .item {
         display: flex;
         font-size: 0.3rem;
-        margin-top: 0.2rem;
+        margin-top: 0.5rem;
         .label {
           margin-right: 0.1rem;
         }
@@ -670,7 +670,7 @@ export default {
     }
   }
   .down {
-       flex: 1;
+    flex: 1;
     padding: 0.07rem 0.05rem;
     // padding-bottom: 0;
     width: 100%;
