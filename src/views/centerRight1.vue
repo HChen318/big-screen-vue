@@ -82,7 +82,7 @@
           </div>
           <div class="r-bottom">
             <dv-border-box-13>
-              <div class="warrper">
+              <div class="warrper-b">
                 <div class="item">
                   <span>7#甲膏结晶罐真空度</span>
                   <span>7#甲膏结晶罐气鼓温度</span>
@@ -275,11 +275,14 @@ export default {
       }
       .r-bottom {
         flex: 1;
+        .warrper-b {
+          padding: 0.3rem 0.2rem;
+        }
         .item {
           font-size: 0.24rem;
           margin-top: 0.08rem;
           span {
-            margin-left: 0.3rem;
+            margin-left: 0.7rem;
           }
         }
       }

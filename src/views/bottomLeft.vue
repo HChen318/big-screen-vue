@@ -50,7 +50,7 @@ export default {
       this.timer = setInterval(() => {
         this.fetchBoiler30TData(); //获取-状态
         this.fetchBoiler50TData(); //获取-状态
-      }, 5 * 1000);
+      }, 1000);
     },
     async fetchBoiler30TData() {
       const { data } = await this.$http.get(
