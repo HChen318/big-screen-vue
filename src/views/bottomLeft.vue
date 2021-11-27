@@ -46,78 +46,24 @@ export default {
       this.timer = setInterval(() => {
         this.fetchBoiler30TData(); //获取-状态
         this.fetchBoiler50TData(); //获取-状态
-      }, 3000);
+      }, 5* 1000);
     },
     async fetchBoiler30TData() {
-      // const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_30T");
-      const data = {
-        code: 0,
-        data: {
-          steam: {
-            flow: 30.0,
-            temperature: 100.0,
-            pressure: 10.0,
-            time: "2021-11-27 00:00:00",
-          },
-          water: {
-            flow: 30.0,
-            height: 8.0,
-            time: "2021-11-27 00:00:00",
-          },
-          furnace: {
-            pressure: -0.5,
-            temperature: 10.0,
-            time: "2021-11-27 00:00:00",
-          },
-          smoke: {
-            oxygen_content: 4.0,
-            temperature: 180.0,
-            time: "2021-11-27 00:00:00",
-          },
-        },
-      };
-
-      const status = data.status;
-      const boiler30TData = JSON.parse(data.data);
+      const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_DL_30T");
+      const status = data.code;
+      const boiler30TData = data.data;
 
       if (status === 0) {
-        this.$refs.bottomLeftChartState.refresh(boiler30TData);
+        this.$refs.bottomLeftChartLeft.refresh(boiler30TData);
       }
     },
     async fetchBoiler50TData() {
-      // const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_50T");
-      const data = {
-        code: 0,
-        data: {
-          steam: {
-            flow: 50.0,
-            temperature: 100.0,
-            pressure: 10.0,
-            time: "2021-11-27 00:00:00",
-          },
-          water: {
-            flow: 50.0,
-            height: 8.0,
-            time: "2021-11-27 00:00:00",
-          },
-          furnace: {
-            pressure: -0.5,
-            temperature: 10.0,
-            time: "2021-11-27 00:00:00",
-          },
-          smoke: {
-            oxygen_content: 4.0,
-            temperature: 180.0,
-            time: "2021-11-27 00:00:00",
-          },
-        },
-      };
-
-      const status = data.status;
-      const boiler50TData = JSON.parse(data.data);
-
+      const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_DL_50T");
+      const status = data.code;
+      const boiler50TData = data.data;
+      
       if (status === 0) {
-        this.$refs.bottomRightChartState.refresh(boiler50TData);
+        this.$refs.bottomLeftChartRight.refresh(boiler50TData);
       }
     },
   },

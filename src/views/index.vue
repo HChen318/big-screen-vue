@@ -42,6 +42,7 @@
               "
             >
               <span class="react-before"></span>
+              <img class="logo" src="../assets/logo.jpg" />
               <span class="text">平吉制糖厂生产数据大屏</span>
             </div>
             <div class="react-right ml-3" style="background-color: #0f1325">
@@ -221,4 +222,8 @@ export default {
 
 <style lang="scss">
 @import "../assets/scss/index.scss";
+.logo {
+  width: 20px;
+  height: auto;
+}
 </style>
