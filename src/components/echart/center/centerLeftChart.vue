@@ -84,66 +84,6 @@ export default {
               },
             },
           },
-          formatter: (p) => {
-            let dom = `<div style="width: 79px;
-        height: 50px;color:#fff;position: relative;">
-              <svg style="position: absolute;top: 50%;
-          left: 50%;
-          transform: translateX(-50%) translateY(-50%);" class="svg" xmlns="http://www.w3.org/2000/svg" width="100" height="71" viewBox="0 0 84 55">
-            <defs>
-              <style>
-                .cls-1 {
-                  fill: #07172c;
-                  fill-opacity: 0.8;
-                  stroke: #a7d8ff;
-                  stroke-linejoin: round;
-                  stroke-opacity: 0.2;
-                  stroke-width: 1px;
-                  fill-rule: evenodd;
-                }
-
-              </style>
-            </defs>
-
-          </svg>
-              <div style="padding: 4px 8px 4px 14px;display: flex;
-              justify-content: center;
-              align-items: center;
-              flex-direction: column;position: relative;z-index: 1;">
-                  <div style="margin-bottom: 4px;width:100%;display:${
-                    p[0] ? "flex" : "none"
-                  };justify-content:space-between;align-items:center;">
-                      <span style="font-size:14px;color:#7ec7ff;">${
-                        p[0] ? p[0].seriesName : ""
-                      }</span>
-                      <span style="font-size:14px;color:#fff;">${
-                        p[0] ? p[0].data : ""
-                      }</span>
-                  </div>
-                  <div style="width:100%;height:100%;display:${
-                    p[1] ? "flex" : "none"
-                  };justify-content:space-between;align-items:center;">
-                      <span style="font-size:14px;color:#7ec7ff;">${
-                        p[1] ? p[1].seriesName : ""
-                      }</span>
-                      <span style="font-size:14px;color:#fff;">${
-                        p[1] ? p[1].data : ""
-                      }</span>
-                  </div>
-                  <div style="width:100%;height:100%;display:${
-                    p[2] ? "flex" : "none"
-                  };justify-content:space-between;align-items:center;">
-                      <span style="font-size:14px;color:#7ec7ff;">${
-                        p[2] ? p[2].seriesName : ""
-                      }</span>
-                      <span style="font-size:14px;color:#fff;">${
-                        p[2] ? p[2].data : ""
-                      }</span>
-                  </div>
-              </div>
-          </div>`;
-            return dom;
-          },
         },
         legend: {
           align: "left",
