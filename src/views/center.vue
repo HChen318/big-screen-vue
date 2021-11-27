@@ -1,22 +1,7 @@
 <template>
   <div id="center">
     <div class="up">
-      <!-- <div
-        class="bg-color-black item"
-        v-for="item in titleItem"
-        :key="item.title"
-      >
-        <p class="colorBlue fw-b" style="text-align: center">
-          {{ item.title }}
-        </p>
-        <div>
-          <dv-digital-flop
-            :config="item.number"
-            style="width: 2.5rem; height: 0.375rem; text-align: center"
-          />
-        </div>
-      </div> -->
-      <bottomLeftChart ref="bottomLeftChart" />
+      <centerChart ref="centerChart" />
       <div class="up-r">
         <dv-border-box-12 style="padding: 0.2rem; height: 3rem">
           <div class="item">
@@ -25,11 +10,11 @@
           </div>
           <div class="item">
             <div class="label">混合汁流量</div>
-            <div class="val"></div>
+            <div class="val">1</div>
           </div>
           <div class="item">
             <div class="label">渗透水温度值:</div>
-            <div class="val"></div>
+            <div class="val">1</div>
           </div>
         </dv-border-box-12>
       </div>
@@ -41,282 +26,37 @@
 </template>
  
 <script>
-import centerChart from "@/components/echart/center/centerChartRate";
-import bottomLeftChart from "@/components/echart/bottom/bottomLeftChart";
+import centerChart from "@/components/echart/center/centerLeftChart";
 
 export default {
   components: {
-    // centerChart
-    // centerChart1,
-    // centerChart2
-
-    bottomLeftChart,
+    centerChart
   },
   data() {
     return {
-      titleItem: [
-        {
-          title: "二氧化碳排放",
-          number: {
-            number: [120],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "二氧化硫排放",
-          number: {
-            number: [18],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "一氧化碳排放",
-          number: {
-            number: [2],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "硫化氢排放",
-          number: {
-            number: [14],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "二硫化碳排放",
-          number: {
-            number: [106],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "污水排放",
-          number: {
-            number: [100],
-            toFixed: 1,
-            content: "{nt}",
-
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-      ],
-      ranking: {
-        data: [
-          {
-            name: "新乡",
-            value: 80,
-          },
-        ],
-        waitTime: 4000,
-        carousel: "single",
-        unit: "件",
-      },
-      config: {
-        header: ["主办单位", "数量"],
-        data: [
-          ['<span style="color:#9fe6b8;">海淀区政府</span>', "23"],
-          ['<span style="color:#9fe6b8;">市发展改革委</span>', "26"],
-          ['<span style="color:#9fe6b8;">市民政局</span>', "35"],
-          ['<span style="color:#9fe6b8;">市城市管理委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市规划自然资源委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市住房城乡建设委</span>', "45"],
-          ['<span style="color:#9fe6b8;">市公安局</span>', "53"],
-          ['<span style="color:#9fe6b8;">市教委</span>', "55"],
-          ['<span style="color:#9fe6b8;">市卫生健康委</span>', "60"],
-          ['<span style="color:#9fe6b8;">市交通委</span>', "153"],
-        ],
-        rowNum: 5, //表格行数
-        headerHeight: 35,
-        headerBGC: "#0f1325", //表头
-        oddRowBGC: "#0f1325", //奇数行
-        evenRowBGC: "#171c33", //偶数行
-        index: true,
-        columnWidth: [30, 150, 50],
-        align: ["center"],
-        waitTime: 3000,
-        carousel: "page",
-      },
-      water: {
-        data: [5, 45],
-        shape: "roundRect",
-        formatter: "{value}%",
-        waveNum: 3,
-      },
-      // 通过率和达标率的组件复用数据
-      rate: [
-        {
-          id: "渗透水流量",
-          tips: 22,
-          colorData: {
-            textStyle: "#3fc0fb",
-            series: {
-              color: ["#00bcd44a", "transparent"],
-              dataColor: {
-                normal: "#03a9f4",
-                shadowColor: "#97e2f5",
-              },
-            },
-          },
-        },
-        {
-          id: "渗透水温度",
-          tips: 67,
-          colorData: {
-            textStyle: "#3fc0fb",
-            series: {
-              color: ["#00bcd44a", "transparent"],
-              dataColor: {
-                normal: "#03a9f4",
-                shadowColor: "#97e2f5",
-              },
-            },
-          },
-        },
-        {
-          id: "混合汁流量",
-          tips: 78,
-          colorData: {
-            textStyle: "#67e0e3",
-            series: {
-              color: ["#faf3a378", "transparent"],
-              dataColor: {
-                normal: "#ff9800",
-                shadowColor: "#fcebad",
-              },
-            },
-          },
-        },
-      ],
+      chart: null
     };
   },
 
   mounted() {
-    // this.fetchProposalSubmit(); //获取-数字板数据
-    // this.fetchProposalReplace(); //获取-代提百分比
-    // this.fetchUnitSum(); //获取-承办单位-排行榜
-    // this.setTimer();
     this.initElecCharts();
+    this.fetchChartData();
+    this.setTimer();
   },
   methods: {
     setTimer() {
       this.timer = setInterval(() => {
-        this.fetchProposalSubmit(); //获取-数字板数据
-        this.fetchProposalReplace(); //获取-代提百分比
-        this.fetchUnitSum(); //获取-承办单位-排行榜
-        this.fetchState(); //获取-状态
-      }, 3000);
+        this.fetchChartData();
+        this.initElecCharts();
+      }, 10* 3000);
     },
-    async fetchState() {
-      const { data } = await this.$http.get("getDataByName?name=STATE_SUM");
+    async fetchChartData() {
+      const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_YZ_SJJ");
+      const status = data.code;
+      const chartData = data.data;
 
-      let status = data.status;
-      let dataList = JSON.parse(data.data);
-
-      if (status === 200) {
-        this.$refs.bottomLeftChartState.refresh(dataList);
-      }
-    },
-    async fetchProposalSubmit() {
-      const { data } = await this.$http.get("getDataByName?name=PROPOSAL_SUM");
-
-      let status = data.status;
-      let titleData = JSON.parse(data.data);
-
-      var titleRes = new Array();
-      if (status === 200) {
-        for (var i = titleData.length - 1; i >= 0; i--) {
-          var item = {
-            title: "",
-            number: {
-              number: [],
-              toFixed: 0,
-              content: "{nt}",
-              style: {
-                fontSize: 15,
-                fill: "#3de7c9",
-              },
-            },
-          };
-          item.title = titleData[i].X0;
-
-          item.number.number.push(titleData[i].COUNT);
-          titleRes.push(item);
-        }
-        this.titleItem = titleRes;
-      }
-    },
-    async fetchProposalReplace() {
-      const { data } = await this.$http.get("getDataByName?name=SUBMIT_SUM");
-
-      let status = data.status;
-      let dataList = JSON.parse(data.data);
-      if (status === 200) {
-        this.rate[0].id = dataList[0].X0;
-        this.rate[1].id = dataList[1].X0;
-        let submitSumMe = dataList[0].COUNT + 0;
-        let submitSumNotMe = dataList[1].COUNT + 0;
-        let count = submitSumMe + submitSumNotMe;
-        submitSumMe = parseFloat((submitSumMe / count) * 100).toFixed(2);
-        submitSumNotMe = parseFloat((submitSumNotMe / count) * 100).toFixed(2);
-
-        this.$refs.centerChart1.refresh(submitSumMe);
-        this.$refs.centerChart2.refresh(submitSumNotMe);
-      }
-    },
-    async fetchUnitSum() {
-      const { data } = await this.$http.get(
-        "getDataByName?name=UNIT_HANDLE_SUM"
-      );
-
-      let status = data.status;
-      let dataList = JSON.parse(data.data);
-
-      let resultList = new Array();
-
-      if (status === 200) {
-        for (var i = dataList.length - 1; i >= 0; i--) {
-          var item = ["组件1", "dev-1"];
-          let colorCode = "";
-          if (i % 2 == 0) {
-            colorCode = '<span style="color:#9fe6b8;">';
-          } else {
-            colorCode = '<span style="color:#67e0e3;">';
-          }
-          item[0] = colorCode + dataList[i].X0 + "</span>";
-          item[1] = colorCode + dataList[i].COUNT + "</span>";
-          resultList.push(item);
-        }
-        this.config.data = resultList;
-        this.$refs["unit"].updateRows(resultList);
+      if (status === 0) {
+        this.$refs.centerChart.refresh(chartData);
       }
     },
     initElecCharts() {
@@ -344,6 +84,8 @@ export default {
       borderData = xData.map(() => {
         return scale;
       });
+
+
       let option = {
         baseOption: {
           timeline: {
@@ -595,6 +337,8 @@ export default {
           },
         ],
       });
+      
+      
       this.chart = this.$echarts.init(document.getElementById("elecChart"));
       this.chart.setOption(option);
     },

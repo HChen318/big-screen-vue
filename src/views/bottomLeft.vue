@@ -61,7 +61,7 @@ export default {
       const { data } = await this.$http.get("http://106.55.188.185/api/getDataByName/?e=1&n=GET_DL_50T");
       const status = data.code;
       const boiler50TData = data.data;
-      
+
       if (status === 0) {
         this.$refs.bottomLeftChartRight.refresh(boiler50TData);
       }
