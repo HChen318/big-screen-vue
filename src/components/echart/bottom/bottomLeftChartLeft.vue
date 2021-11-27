@@ -1,42 +1,42 @@
 <template>
   <div>
-    <div id="bottomLeftChartLeft" style="width: 6.15rem; height: 3.25rem"></div>
-    <ul style="width: 6.15rem; height: 3rem">
+    <div id="bottomLeftChartLeft" style="width: 100%; height: 3.5rem"></div>
+    <ul class="overview-list" style="width: 100%; height: 2.25rem">
         <li>
-            <span class="label">30T炉蒸汽流量</span>
-            <span class="value">{{boiler.steamFlow}}</span>
+            <span class="label">30T炉蒸汽流量: </span>
+            <span class="value">{{boilerData.steam.flow}}</span>
         </li>
         <li>
-            <span class="label">30T炉蒸汽温度</span>
-            <span class="value">{{}}</span>
+            <span class="label">30T炉蒸汽温度: </span>
+            <span class="value">{{boilerData.steam.temperature}}</span>
         </li>
         <li>
-            <span class="label">30T炉蒸汽压力</span>
-            <span class="value"></span>
+            <span class="label">30T炉蒸汽压力: </span>
+            <span class="value">{{boilerData.steam.pressure}}</span>
         </li>
         <li>
-            <span class="label">30T炉给水流量</span>
-            <span class="value"></span>
+            <span class="label">30T炉给水流量: </span>
+            <span class="value">{{boilerData.water.flow}}</span>
         </li>
         <li>
-            <span class="label">30T炉炉膛压力</span>
-            <span class="value"></span>
+            <span class="label">30T炉炉膛压力: </span>
+            <span class="value">{{boilerData.furnace.pressure}}</span>
         </li>
         <li>
-            <span class="label">30T炉汽泡水位</span>
-            <span class="value"></span>
+            <span class="label">30T炉汽泡水位: </span>
+            <span class="value">{{boilerData.water.height}}</span>
         </li>
         <li>
-            <span class="label">30T烟氧含量</span>
-            <span class="value"></span>
+            <span class="label">30T烟氧含量: </span>
+            <span class="value">{{boilerData.smoke.oxygen_content}}</span>
         </li>
         <li>
-            <span class="label">30T炉炉膛温度</span>
-            <span class="value"></span>
+            <span class="label">30T炉炉膛温度: </span>
+            <span class="value">{{boilerData.furnace.temperature}}</span>
         </li>
         <li>
-            <span class="label">30T排烟温度</span>
-            <span class="value"></span>
+            <span class="label">30T排烟温度: </span>
+            <span class="value">{{boilerData.smoke.temperature}}</span>
         </li>
     </ul>
   </div>
@@ -48,7 +48,29 @@ export default {
   data() {
     return {
       chart: null,
-      boilerData: {}
+      boilerData: {
+        "steam":{
+            "flow":30.0,
+            "temperature":100.0,
+            "pressure":10.0,
+            "time":"2021-11-27 00:00:00"
+        },
+        "water":{
+            "flow":30.0,
+            "height":8.0,
+            "time":"2021-11-27 00:00:00"
+        },
+        "furnace":{
+            "pressure":-0.5,
+            "temperature":10.0,
+            "time":"2021-11-27 00:00:00"
+        },
+        "smoke":{
+            "oxygen_content":4.0,
+            "temperature":180.0,
+            "time":"2021-11-27 00:00:00"
+        }
+      }
     };
   },
   mixins: [echartMixins],
@@ -58,7 +80,7 @@ export default {
   methods: {
     refresh(data) {
       let option = this.chart.getOption();
-      option.series[0].data.value = data;
+      option.series[0].data.value = data?.steam?.temperature || 0;
       this.chart.setOption(option);
     },
     draw() {
@@ -74,10 +96,10 @@ export default {
             min: 0,
             max: 100,
             splitNumber: 10,
-            radius: '80%',
+            radius: '76%',
             axisLine: {
               lineStyle: {
-                color: [[1, '#f00']],
+                color: [[1, '#03a9f4']],
                 width: 3
               }
             },
@@ -85,26 +107,26 @@ export default {
               distance: -18,
               length: 18,
               lineStyle: {
-                color: '#f00'
+                color: '#03a9f4'
               }
             },
             axisTick: {
               distance: -12,
               length: 10,
               lineStyle: {
-                color: '#f00'
+                color: '#03a9f4'
               }
             },
             axisLabel: {
               distance: -50,
-              color: '#f00',
-              fontSize: 25
+              color: '#03a9f4',
+              fontSize: 16
             },
             anchor: {
               show: true,
-              size: 20,
+              size: 16,
               itemStyle: {
-                borderColor: '#000',
+                borderColor: '#00deff',
                 borderWidth: 2
               }
             },
@@ -113,7 +135,7 @@ export default {
               icon: 'path://M2090.36389,615.30999 L2090.36389,615.30999 C2091.48372,615.30999 2092.40383,616.194028 2092.44859,617.312956 L2096.90698,728.755929 C2097.05155,732.369577 2094.2393,735.416212 2090.62566,735.56078 C2090.53845,735.564269 2090.45117,735.566014 2090.36389,735.566014 L2090.36389,735.566014 C2086.74736,735.566014 2083.81557,732.63423 2083.81557,729.017692 C2083.81557,728.930412 2083.81732,728.84314 2083.82081,728.755929 L2088.2792,617.312956 C2088.32396,616.194028 2089.24407,615.30999 2090.36389,615.30999 Z',
               length: '115%',
               itemStyle: {
-                color: '#000'
+                color: '#00deff'
               }
             },
             detail: {
@@ -121,58 +143,15 @@ export default {
               precision: 1
             },
             title: {
-              offsetCenter: [0, '-50%']
+              color: '#fff',
+              offsetCenter: [0, '70%']
             },
             data: [
               {
                 value: 58.46,
-                name: 'PLP'
+                name: 'MPa'
               }
             ]
-          },
-          {
-            type: 'gauge',
-            min: 0,
-            max: 60,
-            splitNumber: 6,
-            axisLine: {
-              lineStyle: {
-                color: [[1, '#000']],
-                width: 3
-              }
-            },
-            splitLine: {
-              distance: -3,
-              length: 18,
-              lineStyle: {
-                color: '#000'
-              }
-            },
-            axisTick: {
-              distance: 0,
-              length: 10,
-              lineStyle: {
-                color: '#000'
-              }
-            },
-            axisLabel: {
-              distance: 10,
-              fontSize: 25,
-              color: '#000'
-            },
-            pointer: {
-              show: false
-            },
-            title: {
-              show: false
-            },
-            anchor: {
-              show: true,
-              size: 14,
-              itemStyle: {
-                color: '#000'
-              }
-            }
           }
         ]
     };      
@@ -186,4 +165,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.overview-list {
+    display: flex;
+    padding: 0.125rem;
+    flex-wrap: wrap;
+    li {
+        width: 33.33%;
+        font-size: 0.155rem;
+        color: #d3d6dd;
+    }
+}
 </style>

@@ -7,10 +7,18 @@
         </span>
         <div class="d-flex">
           <span class="fs-xl text mx-2">锅炉统计</span>
+          <dv-decoration-3
+            style="
+              width: 1.25rem;
+              height: 0.25rem;
+              position: relative;
+              top: -0.0375rem;
+            "
+          />
         </div>
       </div>
       <div class="bottom-main">
-        <bottomLeftChartLeft ref="bottomLeftChartLeft"/>
+        <bottomLeftChartLeft style="margin-right: 0.3rem" ref="bottomLeftChartLeft" />
         <bottomLeftChartRight ref="bottomLeftChartRight" />
       </div>
     </div>
@@ -23,12 +31,12 @@ import bottomLeftChartRight from "@/components/echart/bottom/bottomLeftChartRigh
 export default {
   data() {
     return {
-      timer: null
+      timer: null,
     };
   },
   components: {
     bottomLeftChartLeft,
-    bottomLeftChartRight
+    bottomLeftChartRight,
   },
   mounted() {
     this.changeTiming();
@@ -41,29 +49,81 @@ export default {
       }, 3000);
     },
     async fetchBoiler30TData() {
-      const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_30T");
+      // const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_30T");
+      const data = {
+        code: 0,
+        data: {
+          steam: {
+            flow: 30.0,
+            temperature: 100.0,
+            pressure: 10.0,
+            time: "2021-11-27 00:00:00",
+          },
+          water: {
+            flow: 30.0,
+            height: 8.0,
+            time: "2021-11-27 00:00:00",
+          },
+          furnace: {
+            pressure: -0.5,
+            temperature: 10.0,
+            time: "2021-11-27 00:00:00",
+          },
+          smoke: {
+            oxygen_content: 4.0,
+            temperature: 180.0,
+            time: "2021-11-27 00:00:00",
+          },
+        },
+      };
 
       const status = data.status;
       const boiler30TData = JSON.parse(data.data);
 
-      if (status === 200) {
+      if (status === 0) {
         this.$refs.bottomLeftChartState.refresh(boiler30TData);
       }
     },
     async fetchBoiler50TData() {
-      const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_50T");
+      // const { data } = await this.$http.get("getDataByName/?e=1&n=GET_DL_50T");
+      const data = {
+        code: 0,
+        data: {
+          steam: {
+            flow: 50.0,
+            temperature: 100.0,
+            pressure: 10.0,
+            time: "2021-11-27 00:00:00",
+          },
+          water: {
+            flow: 50.0,
+            height: 8.0,
+            time: "2021-11-27 00:00:00",
+          },
+          furnace: {
+            pressure: -0.5,
+            temperature: 10.0,
+            time: "2021-11-27 00:00:00",
+          },
+          smoke: {
+            oxygen_content: 4.0,
+            temperature: 180.0,
+            time: "2021-11-27 00:00:00",
+          },
+        },
+      };
 
       const status = data.status;
       const boiler50TData = JSON.parse(data.data);
 
-      if (status === 200) {
+      if (status === 0) {
         this.$refs.bottomRightChartState.refresh(boiler50TData);
       }
     },
   },
   beforeDestroy() {
     this.timer && clearInterval(this.timer);
-  }
+  },
 };
 </script>
 
@@ -92,5 +152,8 @@ export default {
 .bottom-main {
   display: flex;
   justify-content: space-between;
+  >div {
+    flex: 1;
+  }
 }
 </style>
