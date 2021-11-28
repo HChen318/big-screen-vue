@@ -139,7 +139,26 @@ export default {
         heating1: "",
         heating2: "",
       },
-      jiejingArr: [],
+      jiejingArr: [
+        {
+          number: 1,
+          vacuums: 90,
+          temperature: 27,
+          time: "2021-11-27 00:00:00",
+        },
+        {
+          number: 2,
+          vacuums: 86,
+          temperature: 30,
+          time: "2021-11-27 00:00:00",
+        },
+        {
+          number: 3,
+          vacuums: 100.0,
+          temperature: 30.0,
+          time: "2021-11-27 00:00:00",
+        },
+      ],
     };
   },
   components: {},
@@ -298,8 +317,10 @@ export default {
         .item {
           font-size: 0.24rem;
           margin-top: 0.08rem;
+          display: flex;
+          align-items: left;
           span {
-            margin-left: 0.5rem;
+            flex: 1;
           }
         }
       }

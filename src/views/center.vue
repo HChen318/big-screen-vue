@@ -295,7 +295,7 @@ export default {
             },
             label: {
               normal: {
-                show: false,
+                show: true,
               },
             },
             data: lastYearData,
@@ -336,7 +336,7 @@ export default {
             },
             label: {
               normal: {
-                show: false,
+                show: true,
               },
             },
             data: thisYearData,

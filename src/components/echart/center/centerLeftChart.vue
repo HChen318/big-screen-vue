@@ -50,7 +50,7 @@ export default {
             curNumber = y.number;
           })
           dataObj[curNumber] = Object.values(obj);
-          xLabel = Object.keys(obj).map(x=>x.split(' ')[0]);
+          xLabel = Object.keys(obj);
         })
       }
       // console.log(xLabel, dataObj, 2222);
